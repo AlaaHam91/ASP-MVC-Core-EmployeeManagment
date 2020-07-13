@@ -1,0 +1,32 @@
+﻿@model  UserClaimsViewModel
+@{
+    ViewData["Title"] = "ManageUserClaim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <form method="post" asp-controller="Role"
+          asp-route-UserId="@Model.UserId" asp-action="ManageUserClaim">
+        <div class="card">
+            <div class="card-header">
+                <h2>Manage user Claims</h2>
+            </div>
+            <div class="card-body">
+                @for (int i = 0; i < Model.Claims.Count; i++)
+                {
+                    <div class="form-check m-1">
+                        <input type="hidden" asp-for="@Model.Claims[i].ClaimType" />
+                        <input asp-for="@Model.Claims[i].IsSelected"
+                               class="form-check-input" />
+                        <label class="form-check-label">@Model.Claims[i].ClaimType</label>
+                    </div>
+                }
+                <div asp-validation-summary="All" class="text-danger"></div>
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="Update" class="btn btn-primary" style="width:auto" />
+                <a asp-controller="Role" asp-action="EditRole" asp-route-userId="@Model.UserId" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+
+    </form>
+

@@ -1,0 +1,40 @@
+﻿@model  IEnumerable<Employee>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Index Page";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+  
+    <div class="card-deck">
+        @foreach (var employee in Model)
+        {
+           var PhotoPath = "~/Images/" + (employee.PhotoPath ?? "noimage.jpg");
+
+        <div class="card m-3">
+            <div class="card-header">
+                <h3>@employee.Name</h3>
+            </div>
+            <img src="@PhotoPath" asp-append-version="true" style="width:200px;height:200px"/>
+            <div class="card-footer text-center">
+                <div class="form-group">
+                    <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@employee.EncryptedId">View</a>
+                    @*<a href="home/details/@employee.Id" class="btn btn-primary">View</a>
+        @Html.ActionLink("Show","Details","Home",new {id=employee.Id })
+        <a  class="btn btn-primary" href="@Url.Action("Details","Home",new {id=employee.Id })">Details</a>*@
+                    <a asp-controller="Home" asp-action="Edit" asp-route-id="@employee.Id" class="btn btn-primary btn-sm">Edit</a>
+                    <a class="btn btn-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        </div>
+        }
+        </div>
+</body>
+</html>
